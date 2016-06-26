@@ -8,6 +8,9 @@ abstract class LevelObject {
 	public void checkWalls(){
 		
 	}
+	public void triggers(){
+		
+	}
 	public void goal(){
 		
 	}
