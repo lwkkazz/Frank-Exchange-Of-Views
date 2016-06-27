@@ -7,27 +7,36 @@ import org.lwjgl.input.Mouse;
 
 public class Menu extends BasicGameState{
 	
-	Rectangle rect;
-	int mX, mY;
+	private Rectangle start, exit;
 	
-	boolean shouldFill = false;
+	private Image titleText;
 	
-	int mouseEvent;
+	private int mX, mY;
+		
+	private int mouseEvent;
 	
 	public Menu(int state){
 	}
 
 	@Override
 	public void init(GameContainer gameContainer, StateBasedGame sbGame) throws SlickException {
-		rect = new Rectangle(GameParams.mapScreenX(50),GameParams.mapScreenY(50),GameParams.screenY/10,GameParams.screenY/10);
+		
+		start	= new Rectangle(GameParams.mapScreenX(50)-GameParams.screenX/40,GameParams.mapScreenY(50),(GameParams.screenY/10)*2,GameParams.screenY/20);
+		exit	= new Rectangle(GameParams.mapScreenX(50)-GameParams.screenX/40,GameParams.mapScreenY(60),(GameParams.screenY/10)*2,GameParams.screenY/20);
+
+		titleText = new Image("/res/titletext.png");
 	}
 	
 
 	@Override
 	public void render(GameContainer gameContainer, StateBasedGame sbGame, Graphics graph) throws SlickException {
-		graph.draw(rect);
-		if(shouldFill)
-			graph.fill(rect);
+
+		graph.drawImage(titleText, GameParams.mapScreenX(48), GameParams.mapScreenY(30));
+		graph.draw(start);
+		graph.drawString("Start Game!", GameParams.mapScreenX(49), GameParams.mapScreenY(51));
+		graph.draw(exit);
+		graph.drawString("Exit", GameParams.mapScreenX(52), GameParams.mapScreenY(61));
+
 		
 		graph.drawString("X: "+mX+"| Y: "+mY, GameParams.mapScreenX(10), GameParams.mapScreenY(10));
 	}
@@ -39,16 +48,20 @@ public class Menu extends BasicGameState{
 		mX = Mouse.getX();
 		mY = GameParams.screenY-Mouse.getY();
 		
-		checkClick();
+		checkClick(sbGame);
 	}
 
-	public void checkClick(){
-		if(mouseEvent != -1){
-			if(rect.contains(mX, mY)){
+	public void checkClick(StateBasedGame sbGame){		
+		if(start.contains(mX, mY)){
+			if(mouseEvent != -1){
 				if(mouseEvent==0){
-					shouldFill = true;
-				}else if(mouseEvent==1){
-					shouldFill = false;
+					sbGame.enterState(GameParams.play);
+				}
+			}
+		}if(exit.contains(mX, mY)){
+			if(mouseEvent != -1){
+				if(mouseEvent==0){
+					System.exit(0);
 				}
 			}
 		}
