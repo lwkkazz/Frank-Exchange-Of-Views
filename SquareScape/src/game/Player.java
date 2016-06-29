@@ -23,7 +23,6 @@ public class Player extends GameObject {
 	
 
 	public void render(GameContainer gameContainer, StateBasedGame sbGame, Graphics graph){
-		//graph.draw(rect);
 		graph.drawOval(x, y, w, h);
 	}
 	
