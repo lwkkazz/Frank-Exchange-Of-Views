@@ -8,10 +8,10 @@ public final class GameParams {
 	public static final int		menu		= 0;
 	public static final int 	play		= 1;
 	
-	public static final int		headingNorth	= 361;
-	public static final int		headingSouth	= 362;
-	public static final int		headingWest	= 363;
-	public static final int		headingEast	= 364;
+	public static final int		boundNorth	= 361;
+	public static final int		boundSouth	= 362;
+	public static final int		boundWest	= 363;
+	public static final int		boundEast	= 364;
 
 	public static final int 	screenX		= 1280;
 	public static final int 	screenY		= 720;
@@ -51,14 +51,14 @@ public final class GameParams {
 		wallEast	= (int) wall.getX()+(int)wall.getWidth();
 		
 		
-		if(playerNorth<wallSouth){
-			return headingNorth;
-		}else if(playerSouth>wallNorth){
-			return headingSouth;
-		}else if(playerWest>wallEast){
-			return headingWest;
-		}else if(playerEast<wallWest){
-			return headingEast;
+		if((playerNorth<wallSouth)&&(playerEast<wallWest)&&(playerWest>wallEast)){
+			return boundNorth;
+		}else if((playerSouth>wallNorth)&&(playerEast<wallWest)&&(playerWest>wallEast)){
+			return boundSouth;
+		}else if((playerWest>wallEast)&&(playerNorth<wallSouth)&&(playerSouth>wallNorth)&&(playerWest>wallWest)){
+			return boundWest;
+		}else if((playerEast>wallWest)&&(playerNorth<wallSouth)&&(playerSouth>wallNorth)&&(playerEast>wallEast)){
+			return boundEast;
 		}else
 			return -1;
 	}	
