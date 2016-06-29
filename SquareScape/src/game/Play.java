@@ -35,7 +35,7 @@ public class Play extends BasicGameState{
 		graph.fill(rect);
 		
 		graph.draw(rect2);
-		graph.fill(rect2);
+		//graph.fill(rect2);
 
 		graph.draw(rect3);
 		graph.fill(rect3);
