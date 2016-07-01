@@ -5,13 +5,16 @@ import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.*;
 
+import levels.LevelOne;
+
 
 
 public class Play extends BasicGameState{
 
-	private Rectangle rect, rect2, rect3;
 	
 	private Player player;
+	
+	private LevelOne lvlObj;
 	
 	public Play(int state){
 	}
@@ -20,10 +23,7 @@ public class Play extends BasicGameState{
 	public void init(GameContainer gameContainer, StateBasedGame sbGame) throws SlickException {
 		player	= new Player((int)GameParams.mapScreenX(50), (int)GameParams.mapScreenY(50));
 		
-		rect	= new Rectangle (GameParams.mapScreenX(70),GameParams.mapScreenY(60),GameParams.screenX/10,GameParams.screenX/10);
-		rect2	= new Rectangle (GameParams.mapScreenX(75),GameParams.mapScreenY(65),GameParams.screenX/10,GameParams.screenX/10);
-		rect3	= new Rectangle (GameParams.mapScreenX(80),GameParams.mapScreenY(70),GameParams.screenX/10,GameParams.screenX/10);
-
+		lvlObj = new LevelOne();
 		
 	}
 	
@@ -31,15 +31,12 @@ public class Play extends BasicGameState{
 	@Override
 	public void render(GameContainer gameContainer, StateBasedGame sbGame, Graphics graph) throws SlickException {
 		player.render(gameContainer, sbGame, graph);
-		graph.draw(rect);
-		graph.fill(rect);
 		
-		graph.draw(rect2);
-		//graph.fill(rect2);
-
-		graph.draw(rect3);
-		graph.fill(rect3);
-
+		for(Rectangle walls:lvlObj.getWalls()){
+			graph.draw(walls);
+			graph.fill(walls);
+		}
+		
 
 	}
 
@@ -74,15 +71,13 @@ public class Play extends BasicGameState{
 
 	
 	private boolean checkWalls(int direction){
-		if(rect.intersects(player.getFutureRect(direction))){
-			return true;
-		}else if(rect2.intersects(player.getFutureRect(direction))){
-			return true;
-		}else if(rect3.intersects(player.getFutureRect(direction))){
-			return true;
-		}
-			return false;
 		
+		for(Rectangle walls:lvlObj.getWalls()){
+			if(walls.intersects(player.getFutureRect(direction))){
+				return true;
+			}
+		}
+		return false;
 	}
 	@Override
 	public int getID() {
