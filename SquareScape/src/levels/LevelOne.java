@@ -10,7 +10,7 @@ public class LevelOne extends LevelObject{
 	
 	private Rectangle rect, rect2, rect3, goal;
 
-	public final String LEVEL_TIP = "";
+	public final String LEVEL_TIP = "Where saint paul lives on Earth";
 	
 	public LevelOne(){
 		walls = new ArrayList<Rectangle>();
