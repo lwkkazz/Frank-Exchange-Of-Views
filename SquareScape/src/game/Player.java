@@ -58,6 +58,10 @@ public class Player extends GameObject {
 		return rect;
 	}
 	
+	public Rectangle getRect(){
+		return rect;
+	}
+	
 	public void move(int dir){
 		switch(dir){
 		
